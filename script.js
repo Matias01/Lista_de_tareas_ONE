@@ -40,5 +40,5 @@
         element.classList.toggle("completeIcon")
         element.classList.toggle("far");
     }
-});
+})();
 
