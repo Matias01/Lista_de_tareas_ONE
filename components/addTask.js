@@ -1,6 +1,7 @@
 // Immediately Invoked Function Expression IIFE
 import checkComplete from "./checkComplete.js";
 import deleteIcon from "./deleteIcon.js";
+import { displayTasks } from "./readTasks.js";
 
 export const addTask = (event) => {
     event.preventDefault();
@@ -13,6 +14,9 @@ export const addTask = (event) => {
     const date = calendar.value;
     const dateFormat = moment(date).format('DD/MM/YYYY');
 
+    if (value === "" || date === "") {
+        return;
+    }
     
     input.value = "";
     calendar.value = "";
@@ -21,6 +25,8 @@ export const addTask = (event) => {
         value,
         dateFormat,
     };
+
+    list.innerHTML = "";
 
     const taskList = JSON.parse(localStorage.getItem("tasks")) || [];
     taskList.push(taskObj);
@@ -31,8 +37,7 @@ export const addTask = (event) => {
     // Almacena la información de forma local
     localStorage.setItem("tasks", JSON.stringify(taskList));
 
-    const task = createTask(taskObj);
-    list.appendChild(task);
+    displayTasks()
 };
 
 
